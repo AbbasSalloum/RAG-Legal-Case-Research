@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import type { LegalCase, SearchParams } from "./types";
-import { SearchForm } from "./components/SearchForm";
+import  { SearchForm } from "./components/SearchForm";
 import { ResultsList } from "./components/ResultsList";
 
 function App() {
