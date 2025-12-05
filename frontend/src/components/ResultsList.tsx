@@ -1,5 +1,5 @@
 import type { LegalCase } from "../types";
-import  { CaseCard } from "./CaseCard";
+import { CaseCard } from "./CaseCard";
 
 interface Props {
   cases: LegalCase[];
@@ -7,7 +7,12 @@ interface Props {
 
 export function ResultsList({ cases }: Props) {
   if (!cases.length) {
-    return <p>No results yet. Try a search.</p>;
+    return (
+      <section className="results results--empty">
+        <h2>Results</h2>
+        <p>Run a search to surface the most relevant CanLII decisions.</p>
+      </section>
+    );
   }
 
   return (

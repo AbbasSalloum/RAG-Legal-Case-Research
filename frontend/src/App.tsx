@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import type { LegalCase, SearchParams } from "./types";
-import  { SearchForm } from "./components/SearchForm";
+import { SearchForm } from "./components/SearchForm";
 import { ResultsList } from "./components/ResultsList";
 
 function App() {
@@ -41,14 +41,26 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>RAG Legal Case Searcher</h1>
-        <p>Search Canadian legal cases with AI-assisted relevance (future RAG here).</p>
+        <p>
+          Explore CanLII decisions with AI-ranked relevance, rich snippets, and filters tailored for
+          litigators and researchers.
+        </p>
       </header>
 
       <main>
         <SearchForm onSearch={handleSearch} />
 
-        {loading && <p>Searching cases…</p>}
-        {error && <p className="error">Error: {error}</p>}
+        {loading && (
+          <div className="status status--loading">
+            <span className="status__dot" />
+            Searching cases…
+          </div>
+        )}
+        {error && (
+          <div className="status status--error">
+            <strong>Unable to search.</strong> {error}
+          </div>
+        )}
 
         <ResultsList cases={results} />
       </main>
