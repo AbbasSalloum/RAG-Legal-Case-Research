@@ -37,33 +37,85 @@ function App() {
     }
   }
 
+  const hasResults = results.length > 0;
+  const statusPills: Array<{ key: string; text: string; className: string }> = [];
+
+  if (loading) {
+    statusPills.push({
+      key: "loading",
+      text: "Searching the CanLII memory bank…",
+      className: "pill pill--glow"
+    });
+  }
+
+  if (error) {
+    statusPills.push({
+      key: "error",
+      text: error,
+      className: "pill pill--error"
+    });
+  }
+
+  if (!loading && !error) {
+    statusPills.push({
+      key: hasResults ? "success" : "idle",
+      text: hasResults ? `Found ${results.length} relevant cases` : "Awaiting your first query",
+      className: hasResults ? "pill pill--success" : "pill pill--muted"
+    });
+  }
+
   return (
     <div className="app">
-      <header className="app-header">
-        <h1>RAG Legal Case Searcher</h1>
+      <div className="app__orb app__orb--one" />
+      <div className="app__orb app__orb--two" />
+
+      <header className="masthead">
+        <p className="masthead__eyebrow">RAG Legal Workbench · CanLII corpus</p>
+        <h1>Colorful insights for Canadian precedent research</h1>
         <p>
-          Explore CanLII decisions with AI-ranked relevance, rich snippets, and filters tailored for
-          litigators and researchers.
+          Fuse keyword constraints with semantic retrieval to instantly highlight persuasive
+          authorities. Filter by court, vintage, and focus terms while AI generates the most relevant
+          snippet for every hit.
         </p>
+        <ul className="masthead__highlights">
+          <li>Real-time similarity search</li>
+          <li>Metadata aware filters</li>
+          <li>Snippets ready for drafting</li>
+        </ul>
       </header>
 
-      <main>
-        <SearchForm onSearch={handleSearch} />
-
-        {loading && (
-          <div className="status status--loading">
-            <span className="status__dot" />
-            Searching cases…
+      <div className="content-grid">
+        <section className="panel panel--form">
+          <div className="panel__header">
+            <p className="panel__eyebrow">Query Builder</p>
+            <h2>Blend Boolean + semantic search</h2>
+            <p>Use filters to narrow by year or court before the embedding model ranks candidates.</p>
           </div>
-        )}
-        {error && (
-          <div className="status status--error">
-            <strong>Unable to search.</strong> {error}
-          </div>
-        )}
+          <SearchForm onSearch={handleSearch} />
+          <p className="panel__note">
+            Pro tip: combine legal concepts (e.g. “duty of care auditor”) with filters for precise
+            canvassing.
+          </p>
+        </section>
 
-        <ResultsList cases={results} />
-      </main>
+        <section className="panel panel--results">
+          <div className="panel__header panel__header--results">
+            <div>
+              <p className="panel__eyebrow">Results Overview</p>
+              <h2>Retrieval feed</h2>
+              <p>Explore the ranked CanLII decisions with color-coded diagnosis.</p>
+            </div>
+            <div className="status-rail">
+              {statusPills.map((pill) => (
+                <span key={pill.key} className={pill.className}>
+                  {pill.text}
+                </span>
+              ))}
+            </div>
+          </div>
+          <ResultsList cases={results} />
+        </section>
+      </div>
     </div>
   );
 }

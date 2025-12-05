@@ -8,21 +8,22 @@ interface Props {
 export function ResultsList({ cases }: Props) {
   if (!cases.length) {
     return (
-      <section className="results results--empty">
-        <h2>Results</h2>
-        <p>Run a search to surface the most relevant CanLII decisions.</p>
-      </section>
+      <div className="results results--empty">
+        <div className="results--empty__spark" />
+        <p className="results--empty__eyebrow">Nothing to show (yet)</p>
+        <h3>Run your first semantic query to unlock colorful insights.</h3>
+        <p>Combine a natural language question with filters for year, court, or keywords.</p>
+      </div>
     );
   }
 
   return (
-    <section className="results">
-      <h2>Results ({cases.length})</h2>
+    <div className="results">
       <div className="results-grid">
         {cases.map((c) => (
           <CaseCard key={c.id} legalCase={c} />
         ))}
       </div>
-    </section>
+    </div>
   );
 }
