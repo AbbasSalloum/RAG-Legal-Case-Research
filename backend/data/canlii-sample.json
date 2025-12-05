@@ -1,0 +1,20 @@
+[
+  {
+    "id": "2025canlii12345",
+    "title": "Smith v. Jones",
+    "citation": "2025 ONCA 123",
+    "court": "ONCA",
+    "year": 2025,
+    "url": "https://www.canlii.org/en/on/onca/doc/2025/2025onca123/2025onca123.html",
+    "body": "A negligence appeal concerning professional advice. The Court of Appeal reviewed the applicable duty of care framework, the Anns/Cooper test, and the proximity guidelines for professional auditors. After summarizing the factual matrix, including the consultations between Smith and Jones, the court held that the trial judge failed to analyze the foreseeability of economic harm. The decision also considers standard of review for mixed fact and law and clarifies the causation burden in negligent misrepresentation claims."
+  },
+  {
+    "id": "2023canlii54321",
+    "title": "Doe v. Canada",
+    "citation": "2023 SCC 45",
+    "court": "SCC",
+    "year": 2023,
+    "url": "https://www.canlii.org/en/ca/scc/doc/2023/2023scc45/2023scc45.html",
+    "body": "A Charter challenge to an administrative tribunal's decision. The Supreme Court canvassed the Doré/Loyola framework, applied the Vavilov reasonableness standard, and emphasized proportionality between statutory objectives and Charter protections. The judgment examines tribunal independence, the role of written reasons, and grants partial mandamus."
+  }
+]
