@@ -48,45 +48,24 @@ function App() {
 
   return (
     <div className="app">
-      <header className="masthead">
-        <div>
-          <p className="masthead__eyebrow">CanLII knowledge base</p>
-          <h1>Legal case research, simplified.</h1>
-          <p>
-            Blend natural language questions with a few filters and quickly scan the decisions that
-            matter.
-          </p>
-        </div>
-        <ul className="masthead__highlights">
-          <li>Hybrid search</li>
-          <li>Case metadata</li>
-          <li>Concise snippets</li>
-        </ul>
-      </header>
-
-      <div className="content-grid">
-        <section className="panel panel--form">
-          <div className="panel__header">
-            <p className="panel__eyebrow">Search</p>
-            <h2>Set your filters</h2>
-            <p>Narrow the scope by time frame, court, or keywords before running the search.</p>
+      <div className="chat-shell">
+        <header className="chat-header">
+          <div>
+            <p className="chat-header__eyebrow">RAG · CanLII</p>
+            <h1>Ask about Canadian precedent</h1>
+            <p>Describe your issue and review the cited cases in the stream below.</p>
           </div>
-          <SearchForm onSearch={handleSearch} />
-        </section>
+          <span className="chat-header__status" data-state={loading ? "loading" : error ? "error" : "idle"}>
+            {statusMessage}
+          </span>
+        </header>
 
-        <section className="panel panel--results">
-          <div className="panel__header panel__header--results">
-            <div>
-              <p className="panel__eyebrow">Results</p>
-              <h2>Case list</h2>
-              <p>Browse the ranked CanLII decisions with the generated snippets.</p>
-            </div>
-            <div className="status-text" data-state={loading ? "loading" : error ? "error" : "idle"}>
-              {statusMessage}
-            </div>
-          </div>
+        <main className="chat-stream">
           <ResultsList cases={results} />
-        </section>
+        </main>
+
+        <SearchForm onSearch={handleSearch} />
+        <p className="chat-hint">Responses rely on cached CanLII decisions up to 2023.</p>
       </div>
     </div>
   );

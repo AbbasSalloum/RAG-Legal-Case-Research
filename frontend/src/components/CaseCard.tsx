@@ -6,7 +6,7 @@ interface Props {
 
 export function CaseCard({ legalCase }: Props) {
   return (
-    <article className="case-card">
+    <article className="case-card chat-message chat-message--assistant">
       <header>
         <p className="case-card__eyebrow">{legalCase.citation || legalCase.id}</p>
         <h3>{legalCase.title}</h3>

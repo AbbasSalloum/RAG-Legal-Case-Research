@@ -11,6 +11,7 @@ export function SearchForm({ onSearch }: Props) {
   const [yearTo, setYearTo] = useState("");
   const [court, setCourt] = useState("");
   const [keywords, setKeywords] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -27,62 +28,77 @@ export function SearchForm({ onSearch }: Props) {
   }
 
   return (
-    <form className="search-form" onSubmit={handleSubmit}>
-      <div className="field">
-        <label>Query</label>
+    <form className="composer" onSubmit={handleSubmit}>
+      <div className="composer__input">
         <input
           type="text"
-          placeholder="e.g. negligence duty of care"
+          aria-label="Query"
+          placeholder="Ask about liability, damages, Charter rights…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           required
         />
+        <button type="submit">Send</button>
       </div>
 
-      <div className="field-row">
-        <div className="field">
-          <label>Year from</label>
-          <input
-            type="number"
-            placeholder="2000"
-            value={yearFrom}
-            onChange={(e) => setYearFrom(e.target.value)}
-          />
-        </div>
-        <div className="field">
-          <label>Year to</label>
-          <input
-            type="number"
-            placeholder="2025"
-            value={yearTo}
-            onChange={(e) => setYearTo(e.target.value)}
-          />
-        </div>
+      <div className="composer__toolbar">
+        <button
+          type="button"
+          className="composer__toggle"
+          onClick={() => setShowFilters((prev) => !prev)}
+          aria-pressed={showFilters}
+          aria-expanded={showFilters}
+        >
+          {showFilters ? "Hide filters" : "Add filters"}
+        </button>
       </div>
 
-      <div className="field-row">
-        <div className="field">
-          <label>Court</label>
-          <input
-            type="text"
-            placeholder="e.g. SCC, ONCA"
-            value={court}
-            onChange={(e) => setCourt(e.target.value)}
-          />
-        </div>
+      {showFilters && (
+        <div className="composer__filters">
+          <div className="field-row">
+            <div className="field">
+              <label>Year from</label>
+              <input
+                type="number"
+                placeholder="2000"
+                value={yearFrom}
+                onChange={(e) => setYearFrom(e.target.value)}
+              />
+            </div>
+            <div className="field">
+              <label>Year to</label>
+              <input
+                type="number"
+                placeholder="2025"
+                value={yearTo}
+                onChange={(e) => setYearTo(e.target.value)}
+              />
+            </div>
+          </div>
 
-        <div className="field">
-          <label>Keywords (optional)</label>
-          <input
-            type="text"
-            placeholder="e.g. contract, Charter"
-            value={keywords}
-            onChange={(e) => setKeywords(e.target.value)}
-          />
-        </div>
-      </div>
+          <div className="field-row">
+            <div className="field">
+              <label>Court</label>
+              <input
+                type="text"
+                placeholder="e.g. SCC, ONCA"
+                value={court}
+                onChange={(e) => setCourt(e.target.value)}
+              />
+            </div>
 
-      <button type="submit">Search</button>
+            <div className="field">
+              <label>Keywords</label>
+              <input
+                type="text"
+                placeholder="e.g. contract, Charter"
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 }

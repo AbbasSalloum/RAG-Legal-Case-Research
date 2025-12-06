@@ -8,22 +8,21 @@ interface Props {
 export function ResultsList({ cases }: Props) {
   if (!cases.length) {
     return (
-      <div className="results results--empty">
-        <div className="results--empty__spark" />
-        <p className="results--empty__eyebrow">Nothing to show (yet)</p>
-        <h3>Run your first semantic query to unlock colorful insights.</h3>
-        <p>Combine a natural language question with filters for year, court, or keywords.</p>
+      <div className="results">
+        <div className="chat-message">
+          <p className="results--empty__eyebrow">Welcome</p>
+          <h3>Ask about a fact pattern or doctrine to get curated citations.</h3>
+          <p>Use the filters drawer for court, year range, or additional keywords.</p>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="results">
-      <div className="results-grid">
-        {cases.map((c) => (
-          <CaseCard key={c.id} legalCase={c} />
-        ))}
-      </div>
+      {cases.map((c) => (
+        <CaseCard key={c.id} legalCase={c} />
+      ))}
     </div>
   );
 }
