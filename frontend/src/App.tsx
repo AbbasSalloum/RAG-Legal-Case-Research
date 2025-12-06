@@ -38,79 +38,51 @@ function App() {
   }
 
   const hasResults = results.length > 0;
-  const statusPills: Array<{ key: string; text: string; className: string }> = [];
-
-  if (loading) {
-    statusPills.push({
-      key: "loading",
-      text: "Searching the CanLII memory bank…",
-      className: "pill pill--glow"
-    });
-  }
-
-  if (error) {
-    statusPills.push({
-      key: "error",
-      text: error,
-      className: "pill pill--error"
-    });
-  }
-
-  if (!loading && !error) {
-    statusPills.push({
-      key: hasResults ? "success" : "idle",
-      text: hasResults ? `Found ${results.length} relevant cases` : "Awaiting your first query",
-      className: hasResults ? "pill pill--success" : "pill pill--muted"
-    });
-  }
+  const statusMessage = loading
+    ? "Searching cases..."
+    : error
+      ? error
+      : hasResults
+        ? `Found ${results.length} relevant cases`
+        : "Ready when you are.";
 
   return (
     <div className="app">
-      <div className="app__orb app__orb--one" />
-      <div className="app__orb app__orb--two" />
-
       <header className="masthead">
-        <p className="masthead__eyebrow">RAG Legal Workbench · CanLII corpus</p>
-        <h1>Colorful insights for Canadian precedent research</h1>
-        <p>
-          Fuse keyword constraints with semantic retrieval to instantly highlight persuasive
-          authorities. Filter by court, vintage, and focus terms while AI generates the most relevant
-          snippet for every hit.
-        </p>
+        <div>
+          <p className="masthead__eyebrow">CanLII knowledge base</p>
+          <h1>Legal case research, simplified.</h1>
+          <p>
+            Blend natural language questions with a few filters and quickly scan the decisions that
+            matter.
+          </p>
+        </div>
         <ul className="masthead__highlights">
-          <li>Real-time similarity search</li>
-          <li>Metadata aware filters</li>
-          <li>Snippets ready for drafting</li>
+          <li>Hybrid search</li>
+          <li>Case metadata</li>
+          <li>Concise snippets</li>
         </ul>
       </header>
 
       <div className="content-grid">
         <section className="panel panel--form">
           <div className="panel__header">
-            <p className="panel__eyebrow">Query Builder</p>
-            <h2>Blend Boolean + semantic search</h2>
-            <p>Use filters to narrow by year or court before the embedding model ranks candidates.</p>
+            <p className="panel__eyebrow">Search</p>
+            <h2>Set your filters</h2>
+            <p>Narrow the scope by time frame, court, or keywords before running the search.</p>
           </div>
           <SearchForm onSearch={handleSearch} />
-          <p className="panel__note">
-            Pro tip: combine legal concepts (e.g. “duty of care auditor”) with filters for precise
-            canvassing.
-          </p>
         </section>
 
         <section className="panel panel--results">
           <div className="panel__header panel__header--results">
             <div>
-              <p className="panel__eyebrow">Results Overview</p>
-              <h2>Retrieval feed</h2>
-              <p>Explore the ranked CanLII decisions with color-coded diagnosis.</p>
+              <p className="panel__eyebrow">Results</p>
+              <h2>Case list</h2>
+              <p>Browse the ranked CanLII decisions with the generated snippets.</p>
             </div>
-            <div className="status-rail">
-              {statusPills.map((pill) => (
-                <span key={pill.key} className={pill.className}>
-                  {pill.text}
-                </span>
-              ))}
+            <div className="status-text" data-state={loading ? "loading" : error ? "error" : "idle"}>
+              {statusMessage}
             </div>
           </div>
           <ResultsList cases={results} />
